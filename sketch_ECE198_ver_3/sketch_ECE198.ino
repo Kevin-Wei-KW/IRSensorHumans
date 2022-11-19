@@ -37,6 +37,7 @@ void loop(){
     } else {
       digitalWrite(ledPin, LOW);
       Serial.println("No Motion detected");
+      count = 1400;  //set delay to 3 seconds if no motion is detected
     }
     detected = 0;  //reset detected times
   }
