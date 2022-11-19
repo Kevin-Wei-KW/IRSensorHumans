@@ -13,29 +13,32 @@ void setup() {
   Serial.begin(9600);
 }
 
-int count = 0;
-int detected = 0;
- 
+/*
+for every 100 inputs from the sensor, if a certain number of "motion detected" occurs, output "detected" signal
+*/
+int count = 0;  //count how many inputs have been received from sensor
+int detected = 0;  //count how many motions have been detected out of number of inputs
 void loop(){
-  delay(30);
+  delay(30);  //give 30ms delay between each input from sensor
 
   val = digitalRead(inputPin);  // read input value
   
-  if(count <= 100) {
+  if(count <= 100) {  //only execute once every 100 counts
     count++;
-    if(val == HIGH) {
+    if(val == HIGH) {  //check if motion detected
       detected++;
     }
   } else {
-    count = 0;
-    if(detected >= 10) {
+    count = 0;  //reset count
+    if(detected >= 10) {  //check out of 100 times, if more than 10 motions detected, output on (calibration)
       digitalWrite(ledPin, HIGH);
       Serial.println("Motion detected!");
+      delay(3000);
     } else {
       digitalWrite(ledPin, LOW);
       Serial.println("No Motion detected");
     }
-    detected = 0;
+    detected = 0;  //reset detected times
   }
 
   
